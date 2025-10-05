@@ -33,6 +33,8 @@ from jaxtyping import Float
 from typeguard import typechecked
 from typing import Counter, Collection
 from collections import Counter
+import torch.nn.functional as F
+import torch.optim as optim
 # from tdqm import tdqm
 
 log = logging.getLogger(Path(__file__).stem)  # For usage, see findsim.py in earlier assignment.
@@ -341,29 +343,26 @@ class BackoffAddLambdaLanguageModel(AddLambdaLanguageModel):
         super().__init__(vocab, lambda_)
 
     def prob(self, x: Wordtype, y: Wordtype, z: Wordtype) -> float:
-        # TODO: Reimplement me so that I do backoff
-        """Compute smoothed trigram probability with add-λ backoff."""
+        """Add-lambda with backoff smoothing: p(z | x,y)"""
         return self._prob_trigram(x, y, z)
-        # Don't forget the difference between the Wordtype z and the
-        # 1-element tuple (z,). If you're looking up counts,
-        # these will have very different counts!
 
     def _prob_trigram(self, x: Wordtype, y: Wordtype, z: Wordtype) -> float:
-        num = self.event_count[x, y, z] + self.lambda_ * self.vocab_size * self._prob_bigram(y, z)
-        denom = self.context_count[x, y] + self.lambda_ * self.vocab_size
+        # c(x,y,z) / c(x,y)
+        num = self.event_count[(x, y, z)] + self.lambda_ * self.vocab_size * self._prob_bigram(y, z)
+        denom = self.context_count[(x, y)] + self.lambda_ * self.vocab_size
         return num / denom if denom > 0 else 1.0 / self.vocab_size
 
     def _prob_bigram(self, y: Wordtype, z: Wordtype) -> float:
-        num = self.bigram_count[y, z] + self.lambda_ * self.vocab_size * self._prob_unigram(z)
-        denom = self.unigram_count[y] + self.lambda_ * self.vocab_size
+        # c(y,z) / c(y)
+        num = self.event_count[(y, z)] + self.lambda_ * self.vocab_size * self._prob_unigram(z)
+        denom = self.context_count[(y,)] + self.lambda_ * self.vocab_size
         return num / denom if denom > 0 else 1.0 / self.vocab_size
 
     def _prob_unigram(self, z: Wordtype) -> float:
-        num = self.unigram_count[z] + self.lambda_
-        denom = self.total_tokens + self.lambda_ * self.vocab_size
+        # c(z) / N
+        num = self.event_count[(z,)] + self.lambda_
+        denom = self.event_count[()] + self.lambda_ * self.vocab_size
         return num / denom
-
-
 
 class EmbeddingLogLinearLanguageModel(LanguageModel, nn.Module):
     # Note the use of multiple inheritance: we are both a LanguageModel and a torch.nn.Module.
@@ -459,7 +458,7 @@ class EmbeddingLogLinearLanguageModel(LanguageModel, nn.Module):
 
         return log_num - log_denom  # log probability is num-denom
 
-    def logits(self, x: Wordtype, y: Wordtype) -> Float[torch.Tensor,"vocab"]:
+    def logits(self, x: Wordtype, y: Wordtype):
         """Return a vector of the logs of the unnormalized probabilities f(xyz) * θ 
         for the various types z in the vocabulary.
         These are commonly known as "logits" or "log-odds": the values that you 
@@ -501,6 +500,10 @@ class EmbeddingLogLinearLanguageModel(LanguageModel, nn.Module):
         logits = hidden @ self.W_out
         return logits
     
+    def prob(self, x: Wordtype, y: Wordtype, z: Wordtype) -> float:
+        """Return p(z|x,y) from log probability."""
+        return torch.exp(self.log_prob_tensor(x, y, z)).item()
+
     def loss(self, x, y, z):
         log_p = self.log_prob_tensor(x,y,z)
         nll = -log_p    # negative log likelihood
@@ -541,11 +544,10 @@ class EmbeddingLogLinearLanguageModel(LanguageModel, nn.Module):
         # corpus.  (Its use is illustrated in fileprob.py.)
         #
         for epoch in range(1, self.epochs+1):
-
             total_loss = 0.0
             trigram_count = 0
-
             # For each successive training example i, 
+            print("total", num_tokens(file))
             for x,y,z in read_trigrams(file,self.vocab):
                 optimizer.zero_grad()
 
@@ -575,6 +577,7 @@ class EmbeddingLogLinearLanguageModel(LanguageModel, nn.Module):
 
                 total_loss += loss_val.item()
                 trigram_count += 1
+                print(trigram_count)
             
                 # progress_bar.set_postfix(loss=loss_val.item()) # update progress bar
             F = -(total_loss / trigram_count)
@@ -613,53 +616,66 @@ class EmbeddingLogLinearLanguageModel(LanguageModel, nn.Module):
         # the forward quantity F_i(θ) as a tensor, you can trace backwards to
         # get its gradient -- i.e., to find out how rapidly it would change if
         # each parameter were changed slightly.
-
-
-class ImprovedLogLinearLanguageModel(EmbeddingLogLinearLanguageModel):
-    # TODO: IMPLEMENT ME!
     
-    # This is where you get to come up with some features of your own, as
-    # described in the reading handout.  This class inherits from
-    # EmbeddingLogLinearLanguageModel and you can override anything, such as
-    # `log_prob`.
+class ImprovedLogLinearLanguageModel(EmbeddingLogLinearLanguageModel):
 
-    # Maybe try this? haven't try yet
+    def __init__(self, vocab: Vocab, lexicon_file: Path, l2: float, epochs: int) -> None:
+        super().__init__(vocab, lexicon_file, l2, epochs)
+
+        self.rep_weight = nn.Parameter(torch.tensor(-0.5))   
+        self.skip_weight = nn.Parameter(torch.tensor(0.3))   
+        self.spell_weight = nn.Parameter(torch.tensor(0.4))  
+
+    def spelling_features(self, word: str) -> float:
+        """Compute hand-crafted spelling-based features (not trainable)."""
+        score = 0.0
+        if len(word) == 0:
+            return score
+        if word[0].isupper():
+            score += 1.0
+        if word.endswith("ing"):
+            score += 1.0
+        if word.endswith("ly"):
+            score += 1.0
+        if any(ch.isdigit() for ch in word):
+            score += 1.0
+        if word in {".", "!", "?"}:
+            score += 1.0
+        return score
+
     @typechecked
-    def logits(self, x: Wordtype, y: Wordtype) -> Float[torch.Tensor,"vocab"]:
-        # Get the word vectors for the context words x and y
-        x_idx = torch.tensor(self.word2idx_custom[x], dtype=torch.long)
-        y_idx = torch.tensor(self.word2idx_custom[y], dtype=torch.long)
-        x_vec = self.embedding(x_idx)
-        y_vec = self.embedding(y_idx)
+    def logits(self, x: Wordtype, y: Wordtype):
+        """Vectorized logits computation with repetition, skip-bigram, and spelling features."""
+        device = next(self.parameters()).device
 
-            # --- FEATURE IMPROVEMENT ---
-        # Create a weighted average instead of a simple average.
-        # We're hypothesizing that y is more important than x.
-        # The weights (0.7 and 0.3) are hyperparameters you can tune.
+        # --- context embeddings ---
+        x_vec = self.embedding(torch.tensor(self.word2idx_custom.get(x, 0), device=device))
+        y_vec = self.embedding(torch.tensor(self.word2idx_custom.get(y, 0), device=device))
         context_vec = 0.7 * y_vec + 0.3 * x_vec
-        # -------------------------
-        # The rest of the forward pass is the same as the parent class
-        hidden = torch.tanh(context_vec @ self.X)
-        logits = hidden @ self.W_out
-        return logits
 
-    # OTHER OPTIONAL IMPROVEMENTS: You could override the `train` method.
-    # Instead of using 10 epochs, try "improving the SGD training loop" as
-    # described in the reading handout.  Some possibilities:
-    #
-    # * You can use the `draw_trigrams_forever` function that we
-    #   provided to shuffle the trigrams on each epoch.
-    #
-    # * You can choose to compute F_i using a mini-batch of trigrams
-    #   instead of a single trigram, and try to vectorize the computation
-    #   over the mini-batch.
-    #
-    # * Instead of running for exactly 10*N trigrams, you can implement
-    #   early stopping by giving the `train` method access to dev data.
-    #   This will run for as long as continued training is helpful,
-    #   so it might run for more or fewer than 10*N trigrams.
-    #
-    # * You could use a different optimization algorithm instead of SGD, such
-    #   as `torch.optim.Adam` (https://pytorch.org/docs/stable/optim.html).
-    #
-    pass
+        # --- base logits ---
+        hidden = torch.tanh(context_vec @ self.X)
+        base_logits = hidden @ self.W_out   # shape: (vocab,)
+
+        # --- repetition feature ---
+        rep_mask = torch.zeros(self.vocab_size_custom, device=device)
+        for w in (x, y):
+            if w in self.word2idx_custom:
+                rep_mask[self.word2idx_custom[w]] = 1.0
+
+        rep_term = self.rep_weight * rep_mask  # vector of (vocab,)
+
+        # --- skip-bigram cosine similarity (vectorized) ---
+        emb_all = self.embedding.weight.to(device)        # (vocab, dim)
+        skip_sim = F.cosine_similarity(x_vec.unsqueeze(0), emb_all, dim=1)
+        skip_term = self.skip_weight * skip_sim
+
+        # --- spelling features (still scalar, cheap) ---
+        spell_scores = torch.tensor(
+            [self.spelling_features(w) for w in self.vocab_list_custom],
+            dtype=torch.float32, device=device
+        )
+        spell_term = self.spell_weight * spell_scores
+
+        logits = base_logits + rep_term + skip_term + spell_term
+        return logits
