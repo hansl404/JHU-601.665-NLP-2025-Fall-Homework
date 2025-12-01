@@ -1,0 +1,2 @@
+(ROOT (S (NP (NPx Papa)) (VP (V (V want) -ed) (NP (NPx Joe)) (VP (V to (V eat)) (NP (Det a) (N pickle))))) .)
+(ROOT (S (NP (NPx Papa)) (VP (V (V want) -ed) (VP (V to (V eat)) (NP (Det a) (N pickle))))) .)

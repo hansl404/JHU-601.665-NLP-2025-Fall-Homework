@@ -1,0 +1,27 @@
+INFO:probs:Read vocab of size 84 from vocab-ensp.txt
+INFO:train_lm:Training...
+INFO:probs:Start optimizing on {N} training tokens...
+total 997
+epoch 1: F = -4.3798685648
+total 997
+epoch 2: F = -4.2900271009
+total 997
+epoch 3: F = -4.2157536328
+total 997
+epoch 4: F = -4.1538342227
+total 997
+epoch 5: F = -4.1017522291
+total 997
+epoch 6: F = -4.0575491686
+total 997
+epoch 7: F = -4.0197014359
+total 997
+epoch 8: F = -3.9870198995
+total 997
+epoch 9: F = -3.9585711313
+total 997
+epoch 10: F = -3.9336176825
+Finished training on 997 tokens
+INFO:probs:done optimizing.
+INFO:probs:Saving model to sp_C0.1_d10.model
+INFO:probs:Saved model to sp_C0.1_d10.model

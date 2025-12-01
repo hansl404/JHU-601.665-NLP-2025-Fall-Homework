@@ -1,0 +1,112 @@
+            Papa: Papa 
+            Attributes: sem=Papa head=Papa
+         NPx: Papa 
+         Attributes: num=sing sem=Papa head=Papa
+      NP: Papa 
+      Attributes: sem=%pred pred(Papa) head=Papa num=sing
+               want: want 
+               Attributes: head=want sem=want
+            V: want 
+            Attributes: head=want sem=%obj %subj want(obj,subj) arg=np tense=stem
+            Or:       head=want arg=vpinf sem=%pred %subj want(pred(subj), subj) tense=stem
+            Or:       tense=stem head=want sem=%obj %pred %subj want(pred(obj), subj) arg=npvpinf
+            -ed: -ed 
+            Attributes: sem=-ed head=-ed
+         V: want -ed 
+         Attributes: tense=past arg=np head=want sem=%obj %subj want(obj,subj)
+         Or:       tense=pastp head=want sem=%obj %subj want(obj,subj) arg=np
+         Or:       tense=past head=want arg=vpinf sem=%pred %subj want(pred(subj), subj)
+         Or:       tense=pastp arg=vpinf sem=%pred %subj want(pred(subj), subj) head=want
+         Or:       tense=past arg=npvpinf head=want sem=%obj %pred %subj want(pred(obj), subj)
+         Or:       tense=pastp sem=%obj %pred %subj want(pred(obj), subj) arg=npvpinf head=want
+               Joe: Joe 
+               Attributes: sem=Joe head=Joe
+            NPx: Joe 
+            Attributes: num=sing sem=Joe head=Joe
+         NP: Joe 
+         Attributes: num=sing sem=%pred pred(Joe) head=Joe
+               to: to 
+               Attributes: sem=to head=to
+                  eat: eat 
+                  Attributes: head=eat sem=eat
+               V: eat 
+               Attributes: tense=stem sem=%obj %subj eat(obj,subj) head=eat arg=np
+               Or:       tense=stem head=eat arg=none sem=%subj eat(something,subj)
+            V: to eat 
+            Attributes: tense=inf arg=np head=eat sem=%obj %subj eat(obj,subj)
+            Or:       head=eat arg=none sem=%subj eat(something,subj) tense=inf
+                  a: a 
+                  Attributes: sem=a head=a
+               Det: a 
+               Attributes: sem=%dom %pred E%b [dom(b)] ^ pred(b) head=a num=sing
+                  pickle: pickle 
+                  Attributes: sem=pickle head=pickle
+               N: pickle 
+               Attributes: num=sing sem=pickle head=pickle
+            NP: a pickle 
+            Attributes: sem=%pred E%b [pickle(b)] ^ pred(b) head=pickle num=sing
+         VP: to eat a pickle 
+         Attributes: tense=inf sem=%subj E%b [pickle(b)] ^ eat(b,subj) head=eat
+      VP: want -ed Joe to eat a pickle 
+      Attributes: head=want sem=%subj want(E%b [pickle(b)] ^ eat(b,Joe), subj) tense=past
+      Or:       tense=pastp sem=%subj want(E%b [pickle(b)] ^ eat(b,Joe), subj) head=want
+   S: Papa want -ed Joe to eat a pickle 
+   Attributes: sem=past(want(E%b [pickle(b)] ^ eat(b,Joe), Papa)) head=want
+   .: . 
+   Attributes: head=. sem=.
+ROOT: Papa want -ed Joe to eat a pickle . 
+Attributes: sem=assert(past(want(E%b [pickle(b)] ^ eat(b,Joe), Papa)), speaker) head=want
+---
+            Papa: Papa 
+            Attributes: head=Papa sem=Papa
+         NPx: Papa 
+         Attributes: num=sing sem=Papa head=Papa
+      NP: Papa 
+      Attributes: num=sing sem=%pred pred(Papa) head=Papa
+               want: want 
+               Attributes: sem=want head=want
+            V: want 
+            Attributes: tense=stem sem=%obj %subj want(obj,subj) arg=np head=want
+            Or:       tense=stem sem=%pred %subj want(pred(subj), subj) arg=vpinf head=want
+            Or:       tense=stem arg=npvpinf head=want sem=%obj %pred %subj want(pred(obj), subj)
+            -ed: -ed 
+            Attributes: head=-ed sem=-ed
+         V: want -ed 
+         Attributes: tense=past sem=%obj %subj want(obj,subj) head=want arg=np
+         Or:       tense=pastp sem=%obj %subj want(obj,subj) head=want arg=np
+         Or:       arg=vpinf head=want sem=%pred %subj want(pred(subj), subj) tense=past
+         Or:       head=want sem=%pred %subj want(pred(subj), subj) arg=vpinf tense=pastp
+         Or:       arg=npvpinf sem=%obj %pred %subj want(pred(obj), subj) head=want tense=past
+         Or:       tense=pastp head=want arg=npvpinf sem=%obj %pred %subj want(pred(obj), subj)
+               to: to 
+               Attributes: head=to sem=to
+                  eat: eat 
+                  Attributes: sem=eat head=eat
+               V: eat 
+               Attributes: tense=stem sem=%obj %subj eat(obj,subj) head=eat arg=np
+               Or:       tense=stem head=eat arg=none sem=%subj eat(something,subj)
+            V: to eat 
+            Attributes: tense=inf arg=np sem=%obj %subj eat(obj,subj) head=eat
+            Or:       tense=inf head=eat arg=none sem=%subj eat(something,subj)
+                  a: a 
+                  Attributes: head=a sem=a
+               Det: a 
+               Attributes: num=sing sem=%dom %pred E%b [dom(b)] ^ pred(b) head=a
+                  pickle: pickle 
+                  Attributes: head=pickle sem=pickle
+               N: pickle 
+               Attributes: num=sing sem=pickle head=pickle
+            NP: a pickle 
+            Attributes: num=sing head=pickle sem=%pred E%b [pickle(b)] ^ pred(b)
+         VP: to eat a pickle 
+         Attributes: tense=inf sem=%subj E%b [pickle(b)] ^ eat(b,subj) head=eat
+      VP: want -ed to eat a pickle 
+      Attributes: head=want sem=%subj want(E%b [pickle(b)] ^ eat(b,subj), subj) tense=past
+      Or:       tense=pastp sem=%subj want(E%b [pickle(b)] ^ eat(b,subj), subj) head=want
+   S: Papa want -ed to eat a pickle 
+   Attributes: head=want sem=past(want(E%b [pickle(b)] ^ eat(b,Papa), Papa))
+   .: . 
+   Attributes: sem=. head=.
+ROOT: Papa want -ed to eat a pickle . 
+Attributes: sem=assert(past(want(E%b [pickle(b)] ^ eat(b,Papa), Papa)), speaker) head=want
+---

@@ -1,0 +1,36 @@
+import re
+
+file_path = "textcat_C0.5_d200_p0.7_all.out"  # 修改成你的 all.out 文件路径
+
+correct = 0
+total = 0
+
+with open(file_path, "r", encoding="utf-8") as f:
+    for line in f:
+        line = line.strip()
+        if not line or "files were more" in line:
+            continue  # 跳过统计总结行
+        total += 1
+
+        # 判断预测类别
+        if line.startswith("gen_C"):
+            pred = "gen"
+        elif line.startswith("spam_C"):
+            pred = "spam"
+        else:
+            continue  # 不符合格式的行跳过
+
+        # 从文件名中提取真实类别
+        # eg: "spam.99.215.txt" or "gen.110.205.txt"
+        truth = "gen" if re.search(r"\bgen\.", line) else "spam" if re.search(r"\bspam\.", line) else None
+        if truth is None:
+            continue
+
+        if pred == truth:
+            correct += 1
+
+accuracy = correct / total if total > 0 else 0
+print(f"✅ Total files: {total}")
+print(f"✅ Correct predictions: {correct}")
+print(f"✅ Accuracy: {accuracy*100:.2f}%")
+print(f"❌ Error rate: {(1-accuracy)*100:.2f}%")

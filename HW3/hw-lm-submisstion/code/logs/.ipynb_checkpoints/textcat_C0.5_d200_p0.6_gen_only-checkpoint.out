@@ -1,0 +1,26 @@
+INFO:probs:Loading model from gen_C0.5_d200.model
+INFO:probs:Loaded model from gen_C0.5_d200.model
+INFO:probs:Loading model from spam_C0.5_d200.model
+INFO:probs:Loaded model from spam_C0.5_d200.model
+gen_C0.5_d200.model gen.10.313.txt
+gen_C0.5_d200.model gen.100.335.txt
+gen_C0.5_d200.model gen.100.372.txt
+gen_C0.5_d200.model gen.101.239.txt
+spam_C0.5_d200.model gen.101.306.txt
+spam_C0.5_d200.model gen.102.293.txt
+gen_C0.5_d200.model gen.102.400.txt
+spam_C0.5_d200.model gen.1035.427.txt
+gen_C0.5_d200.model gen.104.398.txt
+gen_C0.5_d200.model gen.105.296.txt
+gen_C0.5_d200.model gen.105.330.txt
+gen_C0.5_d200.model gen.105.401.txt
+gen_C0.5_d200.model gen.106.387.txt
+gen_C0.5_d200.model gen.106.482.txt
+gen_C0.5_d200.model gen.1069.228.txt
+gen_C0.5_d200.model gen.107.345.txt
+spam_C0.5_d200.model gen.1072.229.txt
+gen_C0.5_d200.model gen.108.462.txt
+gen_C0.5_d200.model gen.108.486.txt
+spam_C0.5_d200.model gen.1083.290.txt
+gen_C0.5_d200.model gen.1091.515.txt
+gen_C0.5_d200.model gen.1094.472.txt

@@ -1,0 +1,47 @@
+INFO:probs:Read vocab of size 3439 from genspam-vocab.txt
+INFO:train_lm:Training...
+INFO:probs:Start optimizing on {N} training tokens...
+total 23268
+checkpoint at 10000
+checkpoint at 20000
+epoch 1: F = -14.1041068638
+total 23268
+checkpoint at 10000
+checkpoint at 20000
+epoch 2: F = -13.3922297734
+total 23268
+checkpoint at 10000
+checkpoint at 20000
+epoch 3: F = -12.8742119740
+total 23268
+checkpoint at 10000
+checkpoint at 20000
+epoch 4: F = -12.5600959201
+total 23268
+checkpoint at 10000
+checkpoint at 20000
+epoch 5: F = -12.3024296788
+total 23268
+checkpoint at 10000
+checkpoint at 20000
+epoch 6: F = -12.2284555571
+total 23268
+checkpoint at 10000
+checkpoint at 20000
+epoch 7: F = -12.0026623305
+total 23268
+checkpoint at 10000
+checkpoint at 20000
+epoch 8: F = -11.9451934461
+total 23268
+checkpoint at 10000
+checkpoint at 20000
+epoch 9: F = -11.7847849910
+total 23268
+checkpoint at 10000
+checkpoint at 20000
+epoch 10: F = -11.7026532261
+Finished training on 23268 tokens
+INFO:probs:done optimizing.
+INFO:probs:Saving model to spam_C0.5_d200.model
+INFO:probs:Saved model to spam_C0.5_d200.model

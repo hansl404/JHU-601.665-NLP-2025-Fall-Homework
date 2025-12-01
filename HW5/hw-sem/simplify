@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# This program reads lambda terms from the standard input and prints
+# their simplifications on the standard output.  It's an easy way to
+# experiment with the lambda calculus.  You can type lambda as %.
+#
+# For example, if you type in "(%x x*x)(3)", the program will print "3*3".
+# What if you type in "(%x %y x*x + y*y)(3)"?
+# How about "(%x %y x*x + y*y)(3)(4+5)"?
+#
+# Here's a really, really complicated one to try out:
+# You could represent the list "a,b,c" by the term %list list(a)(b)(c).
+# The term [%1 %2 %list 2(1(list))] is really a concatenation function
+# for such lists.  Try applying it to two of them as follows:
+#   [%1 %2 %list 2(1(list))] (%list list(a)(b)(c), %list list(x)(y))
+
+# Please read the top of LambdaTerm.pm for more information about
+# what kinds of expressions are allowed and how they are evaluated.
+
+echo "Each lambda-calculus expression that you enter will be simplified."
+echo "Look inside `dirname $0`/simplify.pl for comments."
+if which rlwrap >/dev/null; then
+    exec rlwrap `dirname $0`/simplify.pl
+else
+    echo "Tip: Installing rlwrap would make this interface easier to use."
+    exec `dirname $0`/simplify.pl
+fi    

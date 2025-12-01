@@ -1,0 +1,5 @@
+INFO:probs:Loading model from gen_C0.5_d200.model
+INFO:probs:Loaded model from gen_C0.5_d200.model
+INFO:probs:Loading model from spam_C0.5_d200.model
+INFO:probs:Loaded model from spam_C0.5_d200.model
+gen_C0.5_d200.model gen.10.313.txt

@@ -1,0 +1,8 @@
+INFO:probs:Read vocab of size 84 from vocab-ensp.txt
+INFO:train_lm:Training...
+INFO:probs:Start optimizing on {N} training tokens...
+total 1027
+epoch 1: F = -3.8677298510
+total 1027
+epoch 2: F = -3.6650325593
+total 1027

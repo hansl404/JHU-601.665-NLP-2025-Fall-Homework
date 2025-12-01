@@ -1,0 +1,16 @@
+setting,tokens_seen,dev_cross_entropy,avg_learning_speed
+baseline,1620,3.062,7.5
+baseline,3270,2.0397,3.6
+baseline,4860,1.2287,3.9
+baseline,6480,0.7569,3.9
+baseline,8100,0.5661,4.2
+baseline,10020,0.4785,4.5
+baseline,12030,0.4267,4.2
+baseline,14010,0.3912,4.4
+baseline,16020,0.3687,4.6
+baseline,18030,0.3457,5.6
+baseline,20010,0.3321,4.5
+baseline,22020,0.3263,5.4
+baseline,24030,0.3181,4.7
+baseline,26010,0.311,4.5
+baseline,28020,0.2999,4.7

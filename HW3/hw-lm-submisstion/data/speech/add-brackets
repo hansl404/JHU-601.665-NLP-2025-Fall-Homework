@@ -1,0 +1,34 @@
+#!/usr/bin/perl -i
+#
+# Run this as follows to bracket all OOV words, defined as words that
+# appear fewer than $threshold times in $trainfile.
+#
+#   find train dev test grading-test RawData sample* -type f | xargs ./add-brackets
+#
+# We avoid bracketing numbers, since these play a special role in the test files.
+
+$threshold = 3;
+$trainfile = "train/switchboard";
+
+# Count training words.
+open(TRAIN, $trainfile);
+while (<TRAIN>) {
+    tr/[]//d;  # get rid of existing brackets
+    for $w (split(" ")) {
+	++$c{$w};
+    }
+}
+
+# Modify the files in place (thanks to -i flag).
+while (<>) {
+    tr/[]//d;  # get rid of existing brackets
+    s/\S+/bracket($&)/ge;
+    print;
+}
+
+# Return the argument string with any necessary brackets added.
+sub bracket {
+    my ($w) = @_;
+    $w = "[".$w."]" unless $w =~ /-?(\d*\.)?\d+/ || $c{$w} >= $threshold;
+    return $w;
+}

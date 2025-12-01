@@ -1,0 +1,17 @@
+usage: train_lm.py [-h] [--output OUTPUT] [--lambda LAMBDA_] [--lexicon LEXICON] [--l2_regularization L2_REGULARIZATION]
+                   [--epochs EPOCHS] [--device {cpu,cuda,mps}] [-v | -q]
+                   vocab_file {uniform,add_lambda,add_lambda_backoff,log_linear,log_linear_improved} train_file
+train_lm.py: error: unrecognized arguments: nvitop
+INFO:probs:Read vocab of size 84 from vocab-ensp.txt
+Traceback (most recent call last):
+  File "train_lm.py", line 167, in <module>
+    main()
+  File "train_lm.py", line 150, in main
+    lm = ImprovedLogLinearLanguageModel(vocab, args.lexicon, args.l2_regularization, args.epochs)
+  File "/root/hw-lm/code/probs.py", line 629, in __init__
+    super().__init__(vocab, lexicon_file, l2, epochs)
+  File "/root/hw-lm/code/probs.py", line 393, in __init__
+    lexicon[word] = torch.tensor(vector_values, dtype=torch.float32)
+  File "/root/miniconda3/lib/python3.8/site-packages/torch/utils/_device.py", line 62, in __torch_function__
+    return func(*args, **kwargs)
+KeyboardInterrupt

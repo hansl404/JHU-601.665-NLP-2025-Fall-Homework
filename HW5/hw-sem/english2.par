@@ -1,0 +1,6 @@
+(ROOT (S (NP Papa) (VP (V (V eat) -s) (NP (N caviar)))) .)
+(ROOT (S (NP (Det all) (N caviar)) (VP (V is) (Adj delicious))) .)
+(ROOT (S (NP (Det some) (N caviar)) (VP (V is) (Adj delicious))) .)
+(ROOT (S (NP (Det the) (N caviar)) (VP (V is) (Adj delicious))) .)
+(ROOT (S (NP (Det the) (N caviar)) (VP (V are) (Adj delicious))) .)
+(ROOT (S (NP (N caviar)) (VP (V are) (Adj delicious))) .)

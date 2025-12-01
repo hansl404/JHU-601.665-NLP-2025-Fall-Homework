@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>INSTRUCTIONS</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">INSTRUCTIONS</h1>
+</header>
+<h1 id="nlp-homework-7-neuralization">NLP Homework 7: Neuralization</h1>
+<h2 id="setup-and-files">Setup and Files</h2>
+<p>As in previous homeworks, you can activate the environment using</p>
+<pre><code>conda activate nlp-class</code></pre>
+<p>In this homework, you’ll extend your Conditional Random Field tagger
+from the previous homework. First, you will enable it to use contextual
+features that an HMM cannot use. Second, you will neuralize it, which
+means training a neural net to extract the features. The neural net will
+have access to a lexicon of word embeddings.</p>
+<p>You should begin by copying your HW6 directory as your starting point
+for HW7. Add the <code>.py</code> files found in the <code>hw-rnn</code>
+folder:</p>
+<ul>
+<li><code>lexicon.py</code> – lets you load a lexicon of word embeddings
+from a file</li>
+<li><code>crf_backprop.py</code> - <strong>parameter initialization,
+gradient zeroing and accumulation, gradient step</strong></li>
+<li><code>crf_test.py</code> - try out <strong>non-stationary
+potentials</strong></li>
+<li><code>crf_neural.py</code> - <strong>parameter initialization,
+neuralized non-stationary potentials</strong></li>
+<li><code>logsumexp_safe.py</code> – patches PyTorch so that backprop
+can deal with <code>-inf</code>
+<ul>
+<li><em>Note:</em> only needed if your forward algorithm works in
+logspace instead of using the scaling trick</li>
+</ul></li>
+<li><code>tag.py</code> – extends the version from HW6 to call the new
+classes in <code>crf_*.py</code> above</li>
+</ul>
+<p><strong>Boldface</strong> above indicates methods you will write. As
+with HW6, it will be helpful to experiment with small examples of the
+classes in Jupyter notebooks. We have not given you a new notebook, but
+you can build on the previous ones.</p>
+<h2 id="implementation-goal">Implementation goal</h2>
+<p>Use the <code>--help</code> option to see the options you’ll support.
+You’ll work up to being able to run training commands like this:</p>
+<pre><code>python3 tag.py endev --train ensup --crf --reg 0.1 --lr 0.01 --rnn_dim 8 --lexicon words-10.txt --model birnn_8_10.pkl</code></pre>
+<p>You can then test your trained model on any input file (here we are
+testing on the training data, which will obviously have better
+performance):</p>
+<pre><code>python3 tag.py ensup --model basic_test.pkl</code></pre>
+<p>These commands also create output files.</p>
+<h2 id="steps">Steps</h2>
+<p>Below, we’ll give some concrete hints on how to proceed.</p>
+<h3 id="step-0-update-your-python-files">Step 0: Update your Python
+files</h3>
+<p>Download the new files mentioned above. Then make these small
+adjustments to files you already edited in HW6:</p>
+<ul>
+<li>If you added to <code>tag.py</code> in HW6 (by supporting
+<code>--awesome</code> for extra credit), then you may wish to copy your
+additions into the new version of <code>tag.py</code>.</li>
+</ul>
+<h3
+id="step-1-offload-backpropagation-and-parameter-updates-to-pytorch">Step
+1: Offload backpropagation and parameter updates to PyTorch</h3>
+<p>In HW6, you manually implemented the gradient computation for the
+linear-chain CRF (using observed minus expected counts). You also
+manually updated the parameters in the direction of the gradient.</p>
+<p>Instead, let’s have PyTorch compute the gradient with the
+<code>.backward()</code> method (backprop) and carry out the parameter
+updates with <code>torch.optim</code>. That’s the standard, easy way to
+train neural nets and other models.</p>
+<h4 id="what-to-know">What to know</h4>
+<p>The new file <code>crf_backprop.py</code> will get you started on
+this nicer implementation. It contains a class
+<code>ConditionalRandomFieldBackprop</code>, which inherits from
+<code>ConditionalRandomField</code> but also from
+<code>nn.Module</code>, which you already used in <a
+href="https://www.cs.jhu.edu/~jason/465/hw-lm/code/probs.py">HW3</a>.
+The <code>train()</code> logic is inherited from the parent class, but
+you will have to override the methods that it calls to reset,
+accumulate, and follow the gradient. You will only have to write a few
+lines of code.</p>
+<p>Make sure you understand how <a
+href="https://pytorch.org/docs/stable/generated/torch.nn.parameter.Parameter.html"><code>nn.Parameter</code></a>
+determines which gradients are tracked by <a
+href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html"><code>nn.Module</code></a>.
+You’ll use a call like <code>loss.backward()</code> to accumulate the
+gradient.</p>
+<p>You’ll also use the <code>torch.optim</code> package (read more about
+<code>torch.optim</code> <a
+href="https://pytorch.org/docs/stable/optim.html#module-torch.optim">here</a>
+or see examples in HW3) to perform parameter updates with
+<code>optimizer.step()</code>. We’ve created an <code>optimizer</code>
+for you at the start of <code>train()</code>.</p>
+<p>The CRF portions of <code>test_ic</code> and <code>test_en</code> are
+a useful starting point for testing. Check that
+<code>ConditionalRandomFieldBackprop</code> behaves just like its parent
+class <code>ConditionalRandomField</code> when you train on
+<code>icsup</code> and evaluate on <code>icdev</code>, or when you train
+on <code>ensup</code> and evaluate on <code>endev</code>. It does
+exactly the same work – but using PyTorch facilities, which will help
+you extend the class further in later steps.</p>
+<h4 id="fixing-a-problem-with-back-propagation">Fixing a problem with
+back-propagation</h4>
+<p>You may discover that your initial approach only works for
+minibatches of the default size 1 (as used in <code>ic_test</code>).
+When you try larger minibatches (as in <code>en_test</code>), you’ll get
+an error saying that you have run the <code>backward()</code> method
+twice.</p>
+<p>This happens because you are separately computing the gradient of
+each example in the minibatch. In principle, that should work. When you
+compute the <code>loss</code> on an example, calling
+<code>loss.backward()</code> will propagate the gradient backwards,
+accmulating <span class="math inline">\(\frac{\partial
+\texttt{loss}}{\partial x}\)</span> at each intermediate quantity <span
+class="math inline">\(x\)</span>. Eventually it works back to the
+parameters <span class="math inline">\(\theta =\)</span>
+<code>(WA, WB)</code> – the inputs or “leaves” of the computation graph
+– and adds <span class="math inline">\(\frac{\partial
+\texttt{loss}}{\partial \theta}\)</span> to their <code>.grad</code>
+attributes . By doing this for all examples in the minibatch, you can
+accumulate the gradient of the total minibatch loss with respect to
+<span class="math inline">\(\theta\)</span>.</p>
+<p>(<em>Note</em>: In general, when <code>backward()</code> reports a
+mysterious error, try doing
+<code>torch.autograd.set_detect_anomaly(True)</code> at the start of
+training. This lets PyTorch give more informative error messages, at the
+expense of slowing it down.)]</p>
+<p>In this case, the trouble is that in <em>your</em> computation graph,
+the examples in a minibatch <em>shared some of their computation</em>.
+They didn’t just share parameters. You computed <code>A</code> and
+<code>B</code> just once from the parameters (using
+<code>updateAB()</code>) and then <em>reused</em> them for all examples
+in the minibatch:</p>
+<figure>
+<img src="minibatch-bad.png" alt="Three backward passes" />
+<figcaption aria-hidden="true">Three backward passes</figcaption>
+</figure>
+<p>That was certainly the efficient way to compute all of the losses.
+However, it means that when <code>loss2.backward()</code> reaches
+<code>A</code> and <code>B</code>, it will complain that it
+<em>already</em> back-propagated from them during
+<code>loss1.backward()</code>, after which it aggressively freed the
+memory needed to track their gradients (their <code>.grad_fn</code>
+attributes). Thus, it can’t back-propgate from those nodes again.</p>
+<p>To fix this, when you call <code>loss1.backward()</code>, you could
+include the argument <code>retain_graph=True</code>, which says not to
+free the memory.</p>
+<p>However, that’s considered hacky <strong>and will slow your code down
+a lot</strong>. A more standard and more efficient approach is to
+compute a single <code>minibatch_loss</code> that sums the
+log-probabilities of all elements in the minibatch. Then call
+<code>minibatch_loss.backward()</code>.</p>
+<figure>
+<img src="minibatch-good.png" alt="One backward pass" />
+<figcaption aria-hidden="true">One backward pass</figcaption>
+</figure>
+<p>PyTorch will figure out that it should back-propagate from all
+examples to accumulate <em>total</em> gradients at <code>A</code> and
+<code>B</code> <em>before</em> back-propagating from those total
+gradients back to <code>WA</code> and <code>WB</code>. This is more
+time-efficient because <code>backward()</code> only has to work backward
+<em>once</em> from <code>A,B</code> to <code>WA,WB</code> – exactly as
+<code>updateAB()</code> only worked forward <em>once</em> from
+<code>WA,WB</code> to <code>A,B</code>. (It’s just like how the backward
+algorithm in forward-backward collects the total <span
+class="math inline">\(\beta\)</span> value at a node before passing it
+back to earlier nodes.)</p>
+<p>Can you figure out how to implement this approach without changing
+<code>ConditionalRandomField.train()</code> but only overriding some of
+the methods that it calls? It’s still only a few lines of code in
+<code>ConditionalRandomFieldBackprop</code>. <em>Hint:</em> The way that
+the work is divided among <code>_zero_grad()</code>,
+<code>accumulate_logprob_gradient</code>, and
+<code>logprob_gradient_step</code> will no longer exactly match the
+names of those functions.</p>
+<h3 id="step-2-add-support-for-non-stationary-features">Step 2: Add
+support for non-stationary features</h3>
+<p>In HW6, your HMM and CRF models were <em>stationary</em>. That means
+that the same probability matrices <span
+class="math inline">\(A\)</span> and <span
+class="math inline">\(B\)</span> – or potential matrices <span
+class="math inline">\(\phi_A\)</span> and <span
+class="math inline">\(\phi_B\)</span> in the case of a CRF – were used
+at every position <span class="math inline">\(j\)</span> of every
+sentence.</p>
+<p>A non-stationary HMM would be useful for weather patterns that change
+over time. The stationary HMM assumed that <span
+class="math inline">\(p(\texttt{H}\mid \texttt{C})\)</span> was the same
+on day 8 as it was on day 7, but we could relax that assumption.</p>
+<p>Non-stationary CRFs are even more useful. A major advantage of the
+CRF design is that the features for scoring a transition or emission can
+depend on the observed input words around that transition or emission.
+But then we need different potential matrices <span
+class="math inline">\(\phi_A\)</span> and <span
+class="math inline">\(\phi_B\)</span> at different time steps. This is
+discussed in the “Parameterization” section of the reading handout.</p>
+<p>Thus, modify your <code>hmm.py</code> that you copied from HW6. Add
+the functions <code>A_at()</code> and <code>B_at()</code>, which will
+return the <code>A</code> and <code>B</code> matrices to use at a
+<em>particular position in a sentence</em>:</p>
+<pre><code>@typechecked
+def A_at(self, position: int, sentence: IntegerizedSentence) -&gt; Tensor:
+    return self.A
+
+@typechecked
+def B_at(self, position: int, sentence: IntegerizedSentence) -&gt; Tensor:
+    return self.B</code></pre>
+<p>The default definitions above are stationary: they simply return
+fixed matrices <code>self.A</code> and <code>self.B</code> (computed by
+<code>updateAB()</code>). But you will override them in non-stationary
+subclasses.</p>
+<p>Now modify your Viterbi/forward/backward in <code>hmm.py</code> so
+that they call <code>A_at()</code> and <code>B_at()</code> at every
+index rather than using <code>self.A</code> and <code>self.B</code>. For
+example, when you loop over positions <code>j</code> of a sentence, you
+can add the local definitions</p>
+<pre><code>A = self.A_at(j, isent)  
+B = self.B_at(j, isent)</code></pre>
+<p>at the start of the loop body, and then replace <code>self.A</code>
+and <code>self.B</code> in the rest of the loop body with the local
+variables <code>A</code> and <code>B</code>.</p>
+<p>As in the previous step, this <strong>should not</strong> cause any
+changes to your results when tagging with <code>hmm.py</code> and
+<code>crf.py</code>. The following should still get the same results as
+in the previous homework:</p>
+<pre><code>python3 tag.py endev --train ensup         # HMM
+python3 tag.py endev --train ensup --crf   # CRF, now with backprop</code></pre>
+<p>Before you check this, make sure to change <code>tag.py</code> to use
+your new backprop code. The easiest way is to comment out</p>
+<pre><code> from crf import ConditionalRandomField  </code></pre>
+<p>and replace it with</p>
+<pre><code> from crf_backprop import ConditionalRandomFieldBackprop as ConditionalRandomField</code></pre>
+<h3 id="step-3-add-some-actual-non-stationary-features">Step 3: Add some
+actual non-stationary features</h3>
+<p>Now test your implementation by creating a CRF with a few
+non-stationary features. (There is no need to implement a non-stationary
+<em>HMM</em> in this homework.)</p>
+<p>You can do this by implementing <code>A_at()</code> and
+<code>B_at()</code> in the <code>ConditionalRandomFieldTest</code> class
+(<code>crf_test.py</code>). You will not hand this class in, so you can
+experiment however you like. For example, perhaps <span
+class="math inline">\(\phi_A\)</span> and/or <span
+class="math inline">\(\phi_B\)</span> at a position <span
+class="math inline">\(j\)</span> should depend on <span
+class="math inline">\(j\)</span> itself, or on the embeddings of the
+words <span class="math inline">\(w_{j-1}, w_j, w_{j+1}\)</span>.</p>
+<p>Whatever design you pick, the <code>train()</code> method inherited
+from the parent class <code>ConditionalRandomFieldBackprop</code> will
+figure out how to train it for you. That’s the beauty of
+back-propagation.</p>
+<h4 id="running-your-test-class">Running your test class</h4>
+<p>For convenience, <code>ConditionalRandomFieldTest</code> behaves like
+the <code>ConditionalRandomFieldNeural</code> class that you will
+implement below. In particular, they have the same constructor
+arguments. Thus, to try out your test class, you can use the
+command-line interface in <code>tag.py</code>. Just temporarily
+change</p>
+<pre><code>from crf_neural import ConditionalRandomFieldNeural</code></pre>
+<p>to</p>
+<pre><code>from crf_test import ConditionalRandomFieldTest as ConditionalRandomFieldNeural</code></pre>
+<p>You are then (temporarily!) pretending that your test class
+implements the neural CRF, and you can pass it a lexicon using the
+<code>--lexicon</code> command-line argument (or just use the default
+one-hot lexicon). Once you’re done testing, change <code>tag.py</code>
+back.</p>
+<p>Alternatively, you can call <code>ConditionalRandomFieldTest</code>
+from a notebook like <code>test_ic</code> or <code>test_en</code>.</p>
+<p>To see whether your features really work, consider making a tiny
+artificial dataset where the tag <span
+class="math inline">\(t_j\)</span> really is influenced (or even
+determined) by the position <span class="math inline">\(j\)</span>, or
+by the next word <span class="math inline">\(w_{j+1}\)</span>, in a way
+that can’t be modeled by a first-order HMM or by its discriminative
+version (a simple CRF). We have given you two such datasets in the <a
+href="../data"><code>data</code></a> directory, <code>pos</code> and
+<code>next</code>. You should be able to fit these <em>much better</em>
+with <code>ConditionalRandomFieldTest</code> than with its stationary
+parent, <code>ConditionalRandomFieldBackprop</code>.</p>
+<p>Notice that <code>posdev</code> has some long sentences, so it
+contains a few positions <span class="math inline">\(j\)</span> that
+never appeared in <code>possup</code>. Does your trained tagger
+correctly predict the tags at those positions? A position-specific
+emission feature like <span class="math inline">\((j=38 \wedge
+w_j=\text{``\texttt{x}&#39;&#39;} \wedge
+t_j=\text{``\texttt{\_}&#39;&#39;})\)</span> will fire on some candidate
+taggings of the dev data, but this large-<span
+class="math inline">\(j\)</span> feature won’t be very useful since you
+never saw it in training data. If you do want to generalize to larger
+<span class="math inline">\(j\)</span> in held-out (dev) data from
+smaller <span class="math inline">\(j\)</span> in training data, how
+about features that look at <span class="math inline">\(j \bmod
+m\)</span> (especially <span class="math inline">\(j \bmod
+4\)</span>)?</p>
+<h3 id="step-4-implement-a-birnn-crf">Step 4: Implement a biRNN-CRF</h3>
+<p>Now implement the biRNN-based features suggested in the
+“Parameterization” section of the reading handout. You can use
+<code>crf_neural.py</code> as your starter code. The class
+<code>ConditionalRandomFieldNeural</code> inherits from
+<code>ConditionalRandomFieldBackprop</code>.</p>
+<h4 id="some-things-youll-have-to-do">Some things you’ll have to do</h4>
+<ul>
+<li><p>You’ll need to add parameters to the model to help you compute
+all these things (the various <span class="math inline">\(\theta, M,
+U\)</span> parameters described in the reading handout). Remember to
+wrap them as <code>nn.Parameter</code> and assign them to class
+attributes so that Pytorch will track their gradients!</p></li>
+<li><p>You’ll need to override the <code>A_at()</code> and
+<code>B_at()</code> functions. For sigmoid and concatenation (F.sigmoid
+and torch.cat) operations, be careful what dimension you are computing
+these along. Test out your functions to make sure they are computing
+what you expect.</p></li>
+<li><p>You can use one-hot embeddings for the <em>tag</em> embeddings
+(so the embedding matrix is just the identity matrix
+<code>torch.eye()</code>).</p></li>
+<li><p>The <em>word</em> embeddings will be supplied to the model
+constructor as a Tensor called <code>lexicon</code>. For speed, you can
+take this to be fixed rather than treating it as a fine-tuneable
+parameter. The lexicon includes embeddings for many of the held-out
+words (<code>endev</code>), not just for training words
+(<code>ensup</code>), so that you can learn to guess their tags from
+their pre-trained embeddings. (Study <code>lexicon.py</code> and
+<code>tag.py</code> for how this is arranged!) This is not cheating
+because you’re not peeking at the gold tags on the held-out words; those
+words just happened to be in your pre-trained lexicon.</p></li>
+<li><p>You can start out by using null vectors (<code>tensor([])</code>)
+for the biRNN vectors <span class="math inline">\(\vec{h}_j\)</span> and
+<span class="math inline">\(\vec{h}&#39;_j\)</span>. Once you are ready
+to implement them, make sure that you spend only <span
+class="math inline">\(O(1)\)</span> time computing each vector
+(independent of sentence length). There are two reasonable
+implementations:</p>
+<ul>
+<li><p><strong>Lazy</strong> (compute on demand): Use an
+<code>h_at()</code> function. Note that its return values will depend on
+<span class="math inline">\(\vec{h}_{j-1}\)</span> and <span
+class="math inline">\(\vec{h}&#39;_{j+1}\)</span> due to the recurrent
+definition. But you don’t want to do the full <span
+class="math inline">\(O(n)\)</span> recurrence each time you call
+<code>h_at()</code>: that would wastefully recompute vectors that you’d
+computed before. Thus, implement some caching mechanism where you can
+store vectors for resuse. One option is Python’s <code>@lru_cache</code>
+decorator.</p></li>
+<li><p><strong>Eager</strong> (precompute): Before training or testing
+on a sentence, run the left-to-right and right-to-left RNNs, and store
+all resulting token encodings in <code>self</code> where
+<code>A_at()</code> and <code>B_at()</code> can look at them. You’ll
+need to add the following method to <code>hmm.py</code>:</p>
+<pre><code>def setup_sentence(self, isent: IntegerizedSentence) -&gt; None:
+&quot;&quot;&quot;Precompute any quantities needed for forward/backward/Viterbi algorithms.
+This method may be overridden in subclasses.&quot;&quot;&quot;
+pass</code></pre>
+<p>and make sure to call it from <code>forward_pass</code>,
+<code>backward_pass</code>, and <code>Viterbi_tagging</code>. Then you
+can override it in <code>ConditionalRandomFieldNeural</code> (and any
+other subclass that needs this kind of pre-computation).</p></li>
+</ul></li>
+</ul>
+<h4 id="testing-and-speeding-up-your-birnn-crf-implementation">Testing
+and speeding up your biRNN-CRF implementation</h4>
+<ul>
+<li><p>The artificial <code>next</code> and <code>pos</code> datasets in
+the <a href="../data"><code>data</code></a> directory are a great way to
+test. The tagging patterns here are deterministic, but as as you found
+earlier, they can’t be picked up by the simple bigram HMM or CRF designs
+from the previous homework. Even a tiny BiRNN-CRF should be able to
+discover the patterns very quickly, with cross-entropy <span
+class="math inline">\(\rightarrow\)</span> 0 and accuracy <span
+class="math inline">\(\rightarrow\)</span> 100%. For example:</p>
+<pre><code># uses one-hot embeddings since there&#39;s no lexicon
+python3 tag.py nextdev --train nextsup --model next-rnn2.pkl --crf --rnn_dim 2 --eval_interval 200 --max_steps 6000
+python3 tag.py posdev --train possup --model pos-rnn2.pkl --crf --rnn_dim 2 --eval_interval 200 --max_steps 6000</code></pre></li>
+<li><p>For the <code>en</code> (English part-of-speech) dataset, a
+sample <code>tag.py</code> invocation with some reasonable initial
+guesses of the hyperparameters is given near the start of these
+instructions. You may be able to get better or faster training by
+modifying some of the hyperparameters, potentially including the
+lexicon. You may want to start out testing with smaller corpora such as
+<code>ensup-tiny</code>, which you can use for both training and
+evaluation.</p></li>
+<li><p>During training, you may notice that the progress bar pauses at
+the end of each minibatch as the system runs backprop (that is, if
+you’re doing backprop on minibatch loss) and updates the parameters. It
+also pauses when the system saves model checkpoints.</p></li>
+<li><p>To help you tune hyperparameters like learning rate and minibatch
+size, you might find it useful to monitor a quantity that we call
+“learning speed” as you train. See the <code>learning_speed</code> lines
+that we’ve added to the HW6 version of <a
+href="https://cs.jhu.edu/~jason/465/hw-tag/code/crf.py"><code>crf.py</code></a>;
+you could add them to your own copy.</p></li>
+<li><p>Training will be very slow if you do not use vectorized tensor
+operations! Make sure to avoid using for loops in <code>A_at()</code>
+and <code>B_at()</code>. <em>Hint:</em> Think about your output
+dimensions. <code>A_at()</code> should return a k × k matrix, hence the
+final output dimension after multiplying out your weights (see sec. H.4,
+eq. 45) should be k^2. <code>B_at()</code> should first compute a k × 1
+matrix since the word emitted at a given position is known (but should
+still ultimately return a k × V matrix).</p></li>
+<li><p>Even with batched tensor operations, your bi-RNN may still take
+several hours to train (depending on your machine and the details of
+your code), so start early and plan ahead!</p>
+<p>We recommend accelerating training with a GPU. This won’t speed up
+<code>for</code> loops, which are serial, but it will accelerate tensor
+operations using parallelism. There are several ways to get GPU access,
+but we recommend Kaggle (for instructions, see the reading handout).</p>
+<p>You won’t get the <em>full</em> advantage of the GPU without more
+work, unfortunately. To fully occupy its processors, you would have to
+modify your forward algorithm to run on all sentences in a minibatch in
+parallel. This means adding a dimension to all the tensors: for example,
+an alpha vector becomes a matrix, with the new dimension indicating
+which sentence you’re working on. This is how neural net training (and
+testing) code is really implemented; it allows <em>large</em>
+minibatches to be processed rapidly using the hardware. But we won’t
+make you do it here.</p></li>
+</ul>
+<h3 id="step-5-experiment">Step 5: Experiment</h3>
+<p>Experiment with your tagger, as described in the homework handout.
+Some sample command lines using <code>tag.py</code> were given near the
+start of these instructions. You will find it useful to look in the
+<code>.eval</code> logfiles that they create.</p>
+<p>For quick tests to make sure your code doesn’t crash, feel free to
+use the icecream data (or truncated versions of the English files). You
+may also want to use small <code>--eval_interval</code> or
+<code>--max_steps</code> so that your code finishes quickly.</p>
+<p>Even if you use <code>tag.py</code> at the command line instead of
+creating a notebook, you still have to keep track of your experiments
+somehow. We recommend that you maintain a simple file (one command per
+line) that lists all of your training and testing commands (one per
+line). That way, you’ll know exactly which command-line options you used
+to create each file in your directory. You can easily re-run a command
+by pasting it into your terminal.</p>
+<h4 id="pro-tip">Pro tip</h4>
+<p>You can also execute this file using <code>bash</code>, which will
+run <em>all</em> of the commands. That rebuilds all your models and
+output files from scratch using your current code. And once you’re
+treating it as a bash file, you can make use of other bash features like
+comments and loops.</p>
+<p>If you’re running a lot of experiments in that way, you may want
+quieter output. The <code>-q</code> option suppresses the logger’s
+stderr output, except for any warning/error messages. To suppress
+progress bars, set the environment variable <code>TQDM_DISABLE</code>.
+In Linux you can set the environment of a single command like this:</p>
+<pre><code>TQDM_DISABLE=1 python3 tag.py -q ...</code></pre>
+<h3 id="step-6-informed-embeddings">Step 6: Informed embeddings</h3>
+<p>For this part of the assignment (see handout), you should complete
+the <code>problex_lexicon()</code> method in <code>lexicon.py</code>.
+You can then try it out with the <code>--problex</code> option to
+<code>tag.py</code>.</p>
+<p>You can try <code>--problex</code> both with and without
+<code>--lexicon</code>.</p>
+<p>You can also try omitting both. In that case, <code>tag.py</code>
+will fall back to using simple one-hot embeddings of the training words
+(as long as it uses a neural model at all – you can force it to still
+select <code>ConditionalRandomFieldNeural</code> by specifying
+<code>--rnn-dim</code>).</p>
+</body>
+</html>

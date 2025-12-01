@@ -1,0 +1,17 @@
+Tagging accuracy: all: 5.036%, known: 5.348%, seen: nan%, novel: 1.803%
+Tagging accuracy: all: 90.455%, known: 96.786%, seen: nan%, novel: 24.858%
+Tagging accuracy: all: 90.455%, known: 96.786%, seen: nan%, novel: 24.858%
+Tagging accuracy: all: 90.455%, known: 96.786%, seen: nan%, novel: 24.858%
+Tagging accuracy: all: 90.455%, known: 96.786%, seen: nan%, novel: 24.858%
+Tagging accuracy: all: 90.455%, known: 96.786%, seen: nan%, novel: 24.858%
+Tagging accuracy: all: 90.455%, known: 96.786%, seen: nan%, novel: 24.858%
+Tagging accuracy: all: 90.455%, known: 96.786%, seen: nan%, novel: 24.858%
+Tagging accuracy: all: 90.455%, known: 96.786%, seen: nan%, novel: 24.858%
+Tagging accuracy: all: 90.455%, known: 96.786%, seen: nan%, novel: 24.858%
+Tagging accuracy: all: 90.455%, known: 96.786%, seen: nan%, novel: 24.858%
+Total training time: 0:02:04
+---
+Wrote tagging to results/hmm_sup_only.output
+Tagging accuracy: all: 90.455%, known: 96.786%, seen: nan%, novel: 24.858%
+Cross-entropy: 10.8059 nats (= perplexity 49308.774)
+===

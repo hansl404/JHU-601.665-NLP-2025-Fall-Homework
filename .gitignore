@@ -2,3 +2,6 @@
 */.DS_Store
 **/.DS_Store
 
+HW7/hw-rnn/code/model/*.pkl
+HW7/hw-rnn/code/model/en-birnn-d8-onehot.pkl
+HW7/hw-rnn/code/model/

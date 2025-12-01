@@ -1,0 +1,127 @@
+INFO:probs:Read vocab of size 3439 from genspam-vocab.txt
+INFO:train_lm:Training...
+INFO:probs:Start optimizing on {N} training tokens...
+total 101287
+checkpoint at 10000
+checkpoint at 20000
+checkpoint at 30000
+checkpoint at 40000
+checkpoint at 50000
+checkpoint at 60000
+checkpoint at 70000
+checkpoint at 80000
+checkpoint at 90000
+checkpoint at 100000
+epoch 1: F = -7.9305935389
+total 101287
+checkpoint at 10000
+checkpoint at 20000
+checkpoint at 30000
+checkpoint at 40000
+checkpoint at 50000
+checkpoint at 60000
+checkpoint at 70000
+checkpoint at 80000
+checkpoint at 90000
+checkpoint at 100000
+epoch 2: F = -7.8617553956
+total 101287
+checkpoint at 10000
+checkpoint at 20000
+checkpoint at 30000
+checkpoint at 40000
+checkpoint at 50000
+checkpoint at 60000
+checkpoint at 70000
+checkpoint at 80000
+checkpoint at 90000
+checkpoint at 100000
+epoch 3: F = -7.8166612162
+total 101287
+checkpoint at 10000
+checkpoint at 20000
+checkpoint at 30000
+checkpoint at 40000
+checkpoint at 50000
+checkpoint at 60000
+checkpoint at 70000
+checkpoint at 80000
+checkpoint at 90000
+checkpoint at 100000
+epoch 4: F = -7.7974289957
+total 101287
+checkpoint at 10000
+checkpoint at 20000
+checkpoint at 30000
+checkpoint at 40000
+checkpoint at 50000
+checkpoint at 60000
+checkpoint at 70000
+checkpoint at 80000
+checkpoint at 90000
+checkpoint at 100000
+epoch 5: F = -7.7989044124
+total 101287
+checkpoint at 10000
+checkpoint at 20000
+checkpoint at 30000
+checkpoint at 40000
+checkpoint at 50000
+checkpoint at 60000
+checkpoint at 70000
+checkpoint at 80000
+checkpoint at 90000
+checkpoint at 100000
+epoch 6: F = -7.8033012397
+total 101287
+checkpoint at 10000
+checkpoint at 20000
+checkpoint at 30000
+checkpoint at 40000
+checkpoint at 50000
+checkpoint at 60000
+checkpoint at 70000
+checkpoint at 80000
+checkpoint at 90000
+checkpoint at 100000
+epoch 7: F = -7.8078334884
+total 101287
+checkpoint at 10000
+checkpoint at 20000
+checkpoint at 30000
+checkpoint at 40000
+checkpoint at 50000
+checkpoint at 60000
+checkpoint at 70000
+checkpoint at 80000
+checkpoint at 90000
+checkpoint at 100000
+epoch 8: F = -7.8171835007
+total 101287
+checkpoint at 10000
+checkpoint at 20000
+checkpoint at 30000
+checkpoint at 40000
+checkpoint at 50000
+checkpoint at 60000
+checkpoint at 70000
+checkpoint at 80000
+checkpoint at 90000
+checkpoint at 100000
+epoch 9: F = -7.8184413932
+total 101287
+checkpoint at 10000
+checkpoint at 20000
+checkpoint at 30000
+checkpoint at 40000
+checkpoint at 50000
+checkpoint at 60000
+checkpoint at 70000
+checkpoint at 80000
+checkpoint at 90000
+checkpoint at 100000
+epoch 10: F = -7.8185722535
+Finished training on 101287 tokens
+INFO:probs:done optimizing.
+INFO:probs:Saving model to gen_C0.5_d50.model
+INFO:probs:Saved model to gen_C0.5_d50.model

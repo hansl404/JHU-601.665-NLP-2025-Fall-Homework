@@ -1,0 +1,31 @@
+This is an old corpus used for email spam detection.
+
+Some messages are known to be unwanted mass emails ("spam");
+the rest are known to be genuine ("gen").
+
+The GenSpam corpus was prepared by Medlock (2006):
+   https://www.researchgate.net/publication/220271836_An_Adaptive_Semi-Structured_Language_Model_Approach_to_Spam_Filtering_on_a_New_Corpus
+
+Here is a quote from that paper:
+
+   We source the Adaptation and Test sets from the contents of two users
+   inboxes, collected over a number of months (Nov 2002–June 2003),
+   retaining both spam and genuine messages. We take this approach rather
+   than simply extracting a test set from the corpus as a whole, so that
+   the test set represents a real-world spam filtering instance. The 600
+   messages making up the adaptation [development] set are randomly
+   extracted from the same source as the test set, facilitating
+   experimentation into the behaviour of the classifier given a small set
+   of highly relevant samples and a large background corpus.
+
+For this homework, we have provided training sets of different sizes: e.g.,
+   gen            spam	     
+   gen-times2	  spam-times2
+   gen-times4	  spam-times4
+   gen-times8	  spam-times8
+
+Each of these training files contains many messages -- one message per
+line.  gen-times8 and spam-times8 are the complete sets of genuine and
+spam training messages, but it may be convenient to start with smaller
+datasets such as gen and spam.
+

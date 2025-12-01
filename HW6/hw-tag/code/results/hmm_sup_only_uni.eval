@@ -1,0 +1,8 @@
+Tagging accuracy: all: 2.923%, known: 3.205%, seen: nan%, novel: 0.000%
+Tagging accuracy: all: 87.645%, known: 95.998%, seen: nan%, novel: 1.091%
+Total training time: 0:00:13
+---
+Wrote tagging to results/hmm_sup_only_uni.output
+Tagging accuracy: all: 87.645%, known: 95.998%, seen: nan%, novel: 1.091%
+Cross-entropy: 11.3040 nats (= perplexity 81146.620)
+===

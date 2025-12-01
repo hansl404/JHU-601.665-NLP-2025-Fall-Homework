@@ -1,0 +1,8 @@
+(ROOT (EXPR (TERM (TERM (FACTOR (Num 3))) * (FACTOR (Num 5)))))
+(ROOT (EXPR (TERM (TERM (FACTOR (Num pi))) * (FACTOR sqrt { (EXPR (TERM (FACTOR (Num 7)))) }))))
+(ROOT (EXPR (TERM (TERM (FACTOR (Num 7))) * (FACTOR sqrt { (EXPR (TERM (FACTOR (Num pi)))) }))))
+(ROOT (EXPR (TERM (TERM (FACTOR (Num 7))) * (FACTOR (Num 0)))))
+(ROOT (EXPR (TERM (TERM (FACTOR (Num pi))) * (FACTOR (Num 0)))))
+(ROOT (EXPR (TERM (TERM (FACTOR (Num 0))) * (FACTOR (Num 0)))))
+(ROOT (EXPR (TERM (TERM (FACTOR { (EXPR (TERM (TERM (FACTOR (Num 0))) * (FACTOR (Num 0)))) })) * (FACTOR (Num 3)))))
+(ROOT (EXPR (TERM (TERM (FACTOR { (EXPR (TERM (TERM (FACTOR (Num 0))) * (FACTOR (Num 0)))) })) * (FACTOR sqrt { (EXPR (TERM (FACTOR (Num 3)))) }))))

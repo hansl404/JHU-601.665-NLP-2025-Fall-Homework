@@ -1,0 +1,167 @@
+         Papa: Papa 
+         Attributes: sem=Papa head=Papa
+      NP: Papa 
+      Attributes: head=Papa sem=Papa num=sing
+               eat: eat 
+               Attributes: head=eat sem=eat
+            V: eat 
+            Attributes: head=eat tense=stem arg=np sem=%obj %subj eat(obj,subj)
+            Or:       tense=stem head=eat arg=none sem=%subj eat(something,subj)
+            -s: -s 
+            Attributes: sem=-s head=-s
+         V: eat -s 
+         Attributes: num=sing sem=%obj %subj eat(obj,subj) head=eat tense=pres arg=np
+         Or:       tense=pres head=eat arg=none sem=%subj eat(something,subj) num=sing
+               caviar: caviar 
+               Attributes: sem=caviar head=caviar
+            N: caviar 
+            Attributes: num=mass sem=caviar head=caviar
+         NP: caviar 
+         Attributes: head=caviar num=mass sem=some_mass(caviar)
+      VP: eat -s caviar 
+      Attributes: num=sing sem=%subj eat(some_mass(caviar),subj) tense=pres head=eat
+   S: Papa eat -s caviar 
+   Attributes: head=eat sem=pres(eat(some_mass(caviar),Papa))
+   .: . 
+   Attributes: head=. sem=.
+ROOT: Papa eat -s caviar . 
+Attributes: sem=assert(pres(eat(some_mass(caviar),Papa)), speaker) head=eat
+---
+            all: all 
+            Attributes: sem=all head=all
+         Det: all 
+         Attributes: head=all sem=all num=pl
+         Or:       head=all num=mass sem=all
+            caviar: caviar 
+            Attributes: sem=caviar head=caviar
+         N: caviar 
+         Attributes: num=mass sem=caviar head=caviar
+      NP: all caviar 
+      Attributes: head=caviar sem=all(caviar) num=mass
+            is: is 
+            Attributes: sem=is head=is
+         V: is 
+         Attributes: head=be arg=pred tense=pres num=sing sem=%pred %subj pred(subj)
+            delicious: delicious 
+            Attributes: head=delicious sem=delicious
+         Adj: delicious 
+         Attributes: sem=delicious head=delicious
+      VP: is delicious 
+      Attributes: num=sing sem=%subj delicious(subj) tense=pres head=be
+   S: all caviar is delicious 
+   Attributes: head=be sem=pres(delicious(all(caviar)))
+   .: . 
+   Attributes: head=. sem=.
+ROOT: all caviar is delicious . 
+Attributes: sem=assert(pres(delicious(all(caviar))), speaker) head=be
+---
+            some: some 
+            Attributes: head=some sem=some
+         Det: some 
+         Attributes: num=mass sem=some head=some
+         Or:       head=some sem=some num=sing
+         Or:       sem=some_plural num=pl head=some
+            caviar: caviar 
+            Attributes: sem=caviar head=caviar
+         N: caviar 
+         Attributes: head=caviar sem=caviar num=mass
+      NP: some caviar 
+      Attributes: sem=some(caviar) num=mass head=caviar
+            is: is 
+            Attributes: head=is sem=is
+         V: is 
+         Attributes: num=sing sem=%pred %subj pred(subj) arg=pred head=be tense=pres
+            delicious: delicious 
+            Attributes: sem=delicious head=delicious
+         Adj: delicious 
+         Attributes: head=delicious sem=delicious
+      VP: is delicious 
+      Attributes: head=be tense=pres num=sing sem=%subj delicious(subj)
+   S: some caviar is delicious 
+   Attributes: head=be sem=pres(delicious(some(caviar)))
+   .: . 
+   Attributes: head=. sem=.
+ROOT: some caviar is delicious . 
+Attributes: sem=assert(pres(delicious(some(caviar))), speaker) head=be
+---
+            the: the 
+            Attributes: sem=the head=the
+         Det: the 
+         Attributes: num=mass sem=the head=the
+         Or:       sem=the num=sing head=the
+         Or:       sem=the_plural num=pl head=the
+            caviar: caviar 
+            Attributes: head=caviar sem=caviar
+         N: caviar 
+         Attributes: num=mass sem=caviar head=caviar
+      NP: the caviar 
+      Attributes: head=caviar sem=the(caviar) num=mass
+            is: is 
+            Attributes: sem=is head=is
+         V: is 
+         Attributes: tense=pres arg=pred head=be sem=%pred %subj pred(subj) num=sing
+            delicious: delicious 
+            Attributes: sem=delicious head=delicious
+         Adj: delicious 
+         Attributes: sem=delicious head=delicious
+      VP: is delicious 
+      Attributes: tense=pres head=be num=sing sem=%subj delicious(subj)
+   S: the caviar is delicious 
+   Attributes: head=be sem=pres(delicious(the(caviar)))
+   .: . 
+   Attributes: sem=. head=.
+ROOT: the caviar is delicious . 
+Attributes: sem=assert(pres(delicious(the(caviar))), speaker) head=be
+---
+            the: the 
+            Attributes: sem=the head=the
+         Det: the 
+         Attributes: sem=the num=mass head=the
+         Or:       head=the num=sing sem=the
+         Or:       sem=the_plural num=pl head=the
+            caviar: caviar 
+            Attributes: head=caviar sem=caviar
+         N: caviar 
+         Attributes: head=caviar sem=caviar num=mass
+      NP: the caviar 
+      Attributes: num=mass sem=the(caviar) head=caviar
+            are: are 
+            Attributes: sem=are head=are
+         V: are 
+         Attributes: num=pl sem=%pred %subj pred(subj) head=be arg=pred tense=pres
+            delicious: delicious 
+            Attributes: sem=delicious head=delicious
+         Adj: delicious 
+         Attributes: sem=delicious head=delicious
+      VP: are delicious 
+      Attributes: num=pl sem=%subj delicious(subj) head=be tense=pres
+   S: the caviar are delicious 
+   No consistent way to assign attributes!  (Maybe another parse?)
+   .: . 
+   Attributes: sem=. head=.
+ROOT: the caviar are delicious . 
+No consistent way to assign attributes!  (Maybe another parse?)
+---
+            caviar: caviar 
+            Attributes: head=caviar sem=caviar
+         N: caviar 
+         Attributes: num=mass sem=caviar head=caviar
+      NP: caviar 
+      Attributes: head=caviar sem=some_mass(caviar) num=mass
+            are: are 
+            Attributes: sem=are head=are
+         V: are 
+         Attributes: num=pl sem=%pred %subj pred(subj) tense=pres head=be arg=pred
+            delicious: delicious 
+            Attributes: sem=delicious head=delicious
+         Adj: delicious 
+         Attributes: head=delicious sem=delicious
+      VP: are delicious 
+      Attributes: head=be tense=pres num=pl sem=%subj delicious(subj)
+   S: caviar are delicious 
+   No consistent way to assign attributes!  (Maybe another parse?)
+   .: . 
+   Attributes: sem=. head=.
+ROOT: caviar are delicious . 
+No consistent way to assign attributes!  (Maybe another parse?)
+---

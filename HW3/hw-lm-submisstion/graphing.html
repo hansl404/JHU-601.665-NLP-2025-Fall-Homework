@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title>Graphing Tips</title>
+</head>
+
+<h1>Graphing Tips</h1>
+
+<p>To include a graph in your writeup, just include an image of it
+(perhaps a screenshot) in your PDF.</p>
+
+<!-- <p>To include a graph in your writeup, just give us instructions about
+how to view it on the ugrad machines (e.g., <code>xgraph
+mydata.txt</code> or <code>display myplot.png</code>).</p> -->
+
+<p>You can make the graphs however you like---including using a
+spreadsheet, or R, or Matlab.</p>
+
+<p>For Python graphing, usually you would use
+  the <A HREF="https://matplotlib.org/stable/api/pyplot_summary.html"><code>pyplot</code>
+  module</A>, which provides an interface to <code>matplotlib</code>.
+  There's lots of documentation online, but here's a quick example:</p>
+<pre>
+import matplotlib.pyplot as plt
+plt.plot(3,5,'b.')               # a blue dot
+plt.plot(4,-1,'b.')              # another blue dot
+plt.plot([7,8,9],[9,8,7],'rx')   # three red x's
+plt.show()
+
+</pre>
+
+<p>Alternatively, you may like the simple <code>xgraph</code> utility,
+  which is easy to use from the command line.  A more powerful
+  choice would be <code>gnuplot</code>.  Both are described below.</p>
+
+<p><i>Some of the material below is adapted from Jason Baldridge at UT
+Austin.</i></p>
+
+<h4>Remote Graphics</h4>
+
+<p>If you are working on your own Linux machine, you should be able to
+run graphical programs on one of the ugrad machines if you connect to
+it using the
+<code>-Y</code> option: e.g., <code>ssh
+    -Y <i>USERNAME</i>@ugrad12.cs.jhu.edu</code>.  This option allows
+    remote programs on <code>ugrad12</code> to open windows on your
+    local X Window desktop and send graphics back to them.</p>
+
+<p>This should also work if you're working on your own Windows machine (from WSL).</p>
+  
+ <!-- If you are working on your own Windows machine, you can 
+<A HREF="http://taggi.cse.unsw.edu.au/FAQ/Accessing_CSE_login_servers/#Logging_in_from_Windows">use
+  PuTTY and Xming</A> to accomplish the same thing. -->
+
+<p>Remote graphics over X is painfully slow, however.  So you may
+    prefer to work directly on one of the ugrad machines (in
+    <A HREF="https://support.cs.jhu.edu/wiki/Obtaining_Access_To_The_CS_Computer_Labs">Malone
+    122 / Malone G-61</A>) or install graphing programs on your own
+    machine.</p>
+
+<h4>xgraph</h4>
+
+<p>xgraph provides a simple way to create line graphs and scatter
+plots.  The original version
+is <A HREF="http://www.cs.toronto.edu/~radford/xgraph.html">here</A>
+and is already installed on the ugrad machines, where you can
+type <code>man xgraph</code> for documentation.  Alternatively, I
+think the version
+at <a href="http://www.xgraph.org/">www.xgraph.org</a> is a
+later version of the same program and is available as an Ubuntu
+package called <code>xgraph</code>.</p>
+
+<p>The following text file specifies a graph:</p>
+<blockquote><pre>
+TitleText: Sample Data
+
+"Plot one"
+1 2
+2 3
+3 4
+4 5
+5 6
+
+"Plot two"
+1 1
+2 4
+3 9
+4 16
+5 25
+
+"Plot three"
+1 10
+2 8
+3 6
+4 4
+5 2
+</pre></blockquote>
+
+<p>This should be pretty self-explanatory: there are three different
+relationships being plotted.  We can optionally name each graph by
+putting a string in quotes along with the block giving the data. The
+first column gives x values, the second gives y values.</p>
+
+<p>If the above text is in a file called <code>mydata.txt</code>, you can
+  view the graph with the command</p>
+<blockquote><pre>
+xgraph mydata.txt
+</pre></blockquote>
+
+<p>If the above text is printed by your program <tt>myscript</tt>,
+  you can view the graph with the command</p>
+<blockquote><pre>
+myscript | xgraph
+</pre></blockquote>
+
+<p>Use <code>xgraph -P</code> instead of <code>xgraph</code> if you
+  just want to plot the points and not connect them with lines.  There
+  are other options, such as logarithmic plots.</p>
+
+<h4>gnuplot</h4>
+
+<p>A more powerful alternative is gnuplot.  It's available from
+<A HREF="http://gnuplot.info">gnuplot.info</A> or as the
+Ubuntu package <code>gnuplot</code>, and is already installed on the
+ugrad machines.
+
+<p>Let's start by creating two
+data files
+<code>numbers1.dat</code> and <code>numbers2.dat</code>:</p>
+<blockquote><pre>
+1 2
+2 3
+3 4
+4 5
+5 6
+</pre></blockquote>
+
+<blockquote><pre>
+1 1
+2 4
+3 9
+4 16
+5 25
+</pre></blockquote>
+
+<p>Again, the two columns correspond to x and y coordinates of some
+points.  The following gnuplot commands will plot the data along with
+a function:
+<blockquote><pre>
+set xlabel 'My X-axis label'
+set ylabel 'My Y-axis label'
+plot 'numbers1.dat' title 'linear', \
+     'numbers2.dat' title 'squared' with l, \
+     sin(x)**2 title 'sinsquared'
+</pre></blockquote>
+The modifier <code>with l</code> says to connect the points with lines.
+
+<p>You can start gnuplot and enter these commands interactively, or you
+can put the commands in a file <code>mycommands.txt</code> and type
+<blockquote><pre>
+gnuplot -persist mycommands.txt
+</pre></blockquote>
+Or you can pipe the commands into gnuplot:
+<blockquote><pre>
+myscript | gnuplot -persist
+</pre></blockquote>
+</p>
+
+<p>The <code>-persist</code> option keeps the graph window open after
+the gnuplot session ends.  Alternatively, you can dump the graph to
+a PNG file (for example) by including these gnuplot commands:
+<blockquote><pre>
+set term png
+set output "myplot.png"
+</pre></blockquote>
+Make sure to use those commands before plotting, or else type
+<code>replot</code> after you use them.</p>
+
+<p>You can then view the PNG file with any of various commands such
+as <code>display</code>, <code>eog</code>, or
+even <code>firefox</code>.  Running the PNG viewer remotely will be
+slow, so you may want to pull it down to your local machine first:
+<blockquote><code>
+scp <i>USERNAME</i>@ugrad12.cs.jhu.edu:myplot.png .
+display myplot.png
+</code></blockquote>
+The Windows alternative to <code>scp</code> is <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">PSCP</a>.
+
+</body>
+</html>

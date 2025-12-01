@@ -1,0 +1,48 @@
+nohup: ignoring input
+INFO:probs:Read vocab of size 84 from vocab-ensp.txt
+INFO:train_lm:Training...
+INFO:probs:Start optimizing on {N} training tokens...
+total 997
+epoch 1: F = -4.5373538492
+total 997
+epoch 2: F = -4.3954123155
+total 997
+epoch 3: F = -4.2645954686
+total 997
+epoch 4: F = -4.1451205925
+total 997
+epoch 5: F = -4.0368490688
+total 997
+epoch 6: F = -3.9393565817
+total 997
+epoch 7: F = -3.8519949923
+total 997
+epoch 8: F = -3.7739506894
+total 997
+epoch 9: F = -3.7043096739
+total 997
+epoch 10: F = -3.6421245211
+total 997
+epoch 11: F = -3.5864726521
+total 997
+epoch 12: F = -3.5364973313
+total 997
+epoch 13: F = -3.4914325441
+total 997
+epoch 14: F = -3.4506101831
+total 997
+epoch 15: F = -3.4134585744
+total 997
+epoch 16: F = -3.3794938809
+total 997
+epoch 17: F = -3.3483092670
+total 997
+epoch 18: F = -3.3195630408
+total 997
+epoch 19: F = -3.2929682024
+total 997
+epoch 20: F = -3.2682832126
+Finished training on 997 tokens
+INFO:probs:done optimizing.
+INFO:probs:Saving model to sp_improved.model
+INFO:probs:Saved model to sp_improved.model

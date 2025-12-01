@@ -1,0 +1,65 @@
+question 2.d
+
+python tag.py ../data/endev \
+    --train ../data/ensup \
+    --model models/hmm_sup_only.pkl \
+    --eval_file results/hmm_sup_only.eval \
+    --output_file results/hmm_sup_only.output \
+    --max_steps 40000 \
+    --loss viterbi_error
+
+python tag.py ../data/endev \
+    --train ../data/ensup ../data/enraw \
+    --model models/hmm_semisup.pkl \
+    --eval_file results/hmm_semisup.eval \
+    --output_file results/hmm_semisup.output \
+    --max_steps 81000 \
+    --loss viterbi_error \
+    --tolerance 1e-3
+
+
+
+
+2g.
+python tag.py ../data/endev \
+    --train ../data/ensup \
+    --model models/hmm_sup_only_uni.pkl \
+    --eval_file results/hmm_sup_only_uni.eval \
+    --output_file results/hmm_sup_only_uni.output \
+    --max_steps 1 \
+    --unigram \
+    --loss viterbi_error
+
+
+
+    
+    2h.raw_only
+python tag.py ../data/endev \
+    --train ../data/enraw \
+    --model models/hmm_raw_only.pkl \
+    --eval_file results/hmm_raw_only.eval \
+    --output_file results/hmm_raw_only.output \
+    --max_steps 40000 \
+    --loss viterbi_error
+
+
+
+
+
+
+
+4.a hyper (1)
+python tag.py ../data/endev \
+    --train ../data/ensup \
+    --crf \
+    --model models/crf_sup.pkl \
+    --eval_file results/crf_sup.eval \
+    --output_file results/crf_sup.output \
+    --lr 0.05 \
+    --reg 1.0 \
+    --batch_size 30 \
+    --eval_interval 2000 \
+    --max_steps 50000 \
+    --loss viterbi_error
+
+

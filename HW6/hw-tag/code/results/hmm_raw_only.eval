@@ -1,0 +1,18 @@
+Tagging accuracy: all: 4.685%, known: 5.144%, seen: 5.219%, novel: 0.046%
+Tagging accuracy: all: 4.685%, known: 5.144%, seen: 5.219%, novel: 0.046%
+Tagging accuracy: all: 4.798%, known: 4.932%, seen: 5.387%, novel: 3.326%
+Tagging accuracy: all: 5.052%, known: 4.998%, seen: 6.061%, novel: 5.312%
+Tagging accuracy: all: 5.107%, known: 4.686%, seen: 7.744%, novel: 8.499%
+Tagging accuracy: all: 5.257%, known: 4.455%, seen: 6.229%, novel: 12.841%
+Tagging accuracy: all: 3.821%, known: 3.256%, seen: 4.040%, novel: 9.284%
+Tagging accuracy: all: 0.781%, known: 0.736%, seen: 0.337%, novel: 1.339%
+Tagging accuracy: all: 0.489%, known: 0.547%, seen: 0.168%, novel: 0.000%
+Tagging accuracy: all: 0.722%, known: 0.816%, seen: 0.000%, novel: 0.000%
+Tagging accuracy: all: 0.701%, known: 0.793%, seen: 0.000%, novel: 0.000%
+Tagging accuracy: all: 0.681%, known: 0.769%, seen: 0.000%, novel: 0.000%
+Total training time: 0:01:55
+---
+Wrote tagging to results/hmm_raw_only.output
+Tagging accuracy: all: 0.681%, known: 0.769%, seen: 0.000%, novel: 0.000%
+Cross-entropy: 13.7776 nats (= perplexity 962790.042)
+===

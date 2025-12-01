@@ -1,0 +1,9 @@
+INFO:probs:Read vocab of size 84 from vocab-ensp.txt
+Traceback (most recent call last):
+  File "train_lm.py", line 167, in <module>
+    main()
+  File "train_lm.py", line 146, in main
+    lm = EmbeddingLogLinearLanguageModel(vocab, args.lexicon, args.l2_regularization, args.epochs)
+  File "/root/hw-lm/code/probs.py", line 384, in __init__
+    with open(lexicon_file, "r", encoding="utf-8") as f:
+FileNotFoundError: [Errno 2] No such file or directory: '../lexicons/chars-50.txt'
